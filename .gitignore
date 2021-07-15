@@ -1,3 +1,4 @@
 django_webhook/settings.py
 *.pyc
 __pycache__
+.idea
