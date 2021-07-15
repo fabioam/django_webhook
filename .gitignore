@@ -1,0 +1,3 @@
+django_webhook/settings.py
+*.pyc
+__pycache__
