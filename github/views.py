@@ -44,3 +44,16 @@ def webhook_post(request):
             return HttpResponse("invalide signature")
 
     return HttpResponse('method not allowed')
+
+
+@csrf_exempt
+def webhook_post_test(request):
+    os.chdir(settings.LOCAL_REPOS_PATH)
+    os.system('git pull origin %s' % settings.GITHUB_REPOS_BRANCH)
+    os.system('yarn install')
+    os.system('yarn build')
+    os.system('pm2 stop %s' % settings.PM2_PROCESS_NAME)
+    os.system('pm2 start %s' % settings.PM2_PROCESS_NAME)
+    os.system('pm2 reload %s' % settings.PM2_PROCESS_NAME)
+
+    return HttpResponse("deploy done")
