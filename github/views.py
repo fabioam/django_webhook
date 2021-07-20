@@ -42,8 +42,8 @@ def webhook_post(request):
                 return HttpResponse("deploy done")
         else:
             return HttpResponse("invalide signature")
-
-    return HttpResponse('method not allowed')
+    else:
+        return HttpResponse('method not allowed')
 
 
 @csrf_exempt
