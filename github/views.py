@@ -39,6 +39,8 @@ def webhook_post(request):
                     popen_output += os.popen(command).read()
 
                 return HttpResponse(popen_output)
+            else:
+                return HttpResponse('Ignoring branch %s - deploy will not run' % data.get('ref').replace('refs/heads/', ''))
         else:
             return HttpResponse("invalide signature")
     else:
