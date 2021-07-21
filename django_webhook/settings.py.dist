@@ -132,3 +132,11 @@ GITHUB_REPOS_BRANCH = os.environ.get('GITHUB_REPOS_BRANCH', 'develop')
 
 LOCAL_REPOS_PATH = os.environ.get('LOCAL_REPOS_PATH', '/home/user/webhook-pull/test')
 PM2_PROCESS_NAME = os.environ.get('PM2_PROCESS_NAME', 'app-front')
+
+COMMAND_LIST = [
+    'git pull origin %s' % GITHUB_REPOS_BRANCH,
+    'yarn install',
+    'yarn build',
+    'pm2 restart %s' % PM2_PROCESS_NAME,
+    'pm2 reload %s' % PM2_PROCESS_NAME,
+]
