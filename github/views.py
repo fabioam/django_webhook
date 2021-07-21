@@ -6,6 +6,8 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+import subprocess
+import sys
 
 def validate_signature(payload, secret):
     # Get the signature from the payload
@@ -33,13 +35,10 @@ def webhook_post(request):
 
                 os.chdir(settings.LOCAL_REPOS_PATH)
 
-                popen_output = 'Webhook starting from %s:' % os.popen('pwd').read()
+                subprocess.Popen(';'.join(settings.COMMAND_LIST), shell=True)
 
-                for command in settings.COMMAND_LIST:
-                    os.system(command)
-                    # popen_output += os.popen(command).read()
-
-                popen_output += 'deploy done'
+                popen_output = 'Webhook starting from %s' % os.popen('pwd').read()
+                popen_output += 'Commands: %s' % ';'.join(settings.COMMAND_LIST)
 
                 return HttpResponse(popen_output)
             else:
@@ -54,6 +53,9 @@ def webhook_post(request):
 def webhook_post_test(request):
 
     # os.system('git pull origin %s' % settings.GITHUB_REPOS_BRANCH)
+    command_line = ''
+    for command in settings.COMMAND_LIST:
+        command_line += '%s;' % command
 
     os.chdir(settings.LOCAL_REPOS_PATH)
     popen_output = 'Webhook starting from %s:\n' % os.popen('pwd').read()
