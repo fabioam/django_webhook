@@ -36,7 +36,10 @@ def webhook_post(request):
                 popen_output = 'Webhook starting from %s:' % os.popen('pwd').read()
 
                 for command in settings.COMMAND_LIST:
-                    popen_output += os.popen(command).read()
+                    os.system(command)
+                    # popen_output += os.popen(command).read()
+
+                popen_output += 'deploy done'
 
                 return HttpResponse(popen_output)
             else:
