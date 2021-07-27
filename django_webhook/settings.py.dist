@@ -135,8 +135,10 @@ PM2_PROCESS_NAME = os.environ.get('PM2_PROCESS_NAME', 'app-front')
 
 COMMAND_LIST = [
     'git pull origin %s' % GITHUB_REPOS_BRANCH,
-    'yarn install',
-    'yarn build',
-    'pm2 restart %s' % PM2_PROCESS_NAME,
-    'pm2 reload %s' % PM2_PROCESS_NAME,
+    '/usr/local/bin/yarn install',
+    '/usr/local/bin/yarn build',
+    'HOME=/home/cuida /usr/local/bin/pm2 restart %s' % PM2_PROCESS_NAME,
+    'HOME=/home/cuida /usr/local/bin/pm2 reload %s' % PM2_PROCESS_NAME,
 ]
+
+FORCE_SCRIPT_NAME = '/webhook/'
